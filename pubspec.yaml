@@ -56,6 +56,18 @@ dependencies:
   share_plus: ^11.1.0
   top_snackbar_flutter: ^3.1.0
   timeago: ^3.6.1
+  # flutter_config: ^2.0.2
+  # Sixth 10
+  screenshot: ^3.0.0
+  gal: ^2.3.2
+  permission_handler: ^11.3.0
+  modal_bottom_sheet: ^3.0.0
+  flutter_image_compress: ^2.2.0
+  appsflyer_sdk: ^6.14.3
+  sms_autofill: ^2.3.1
+  pin_code_fields: ^8.0.1
+  flutter_local_notifications: ^19.4.1
+  pdf: ^3.10.8
 
 dev_dependencies:
   flutter_test:
