@@ -1,0 +1,91 @@
+name: Flutter Build APK
+
+on:
+  workflow_dispatch:  # Allows manual trigger from the GitHub Actions tab on any branch
+   inputs:
+      build_mode:
+        description: 'Select build mode'
+        required: true
+        default: 'release'
+        type: choice
+        options:
+          - debug
+          - profile
+          - release
+
+jobs:
+  build:
+    name: Build Flutter APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          # When manually triggered, this will check out the branch that was selected
+
+      - name: Display current branch
+        run: echo "Building branch -> ${GITHUB_REF#refs/heads/}"
+
+      - name: Set up Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.3'
+          channel: 'stable'
+          cache: true
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build APK
+        run: flutter build apk --${{ github.event.inputs.build_mode }}
+
+      - name: Get app version
+        id: version
+        run: |
+          VERSION=$(grep "version:" pubspec.yaml | cut -d ' ' -f 2 | tr -d '\r')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+          
+      - name: Rename APK with version and timestamp
+        run: |
+          TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+          BUILD_MODE=${{ github.event.inputs.build_mode }}
+          VERSION=${{ steps.version.outputs.version }}
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          BRANCH_NAME=${BRANCH_NAME//\//_}
+          
+          mkdir -p artifacts
+          cp build/app/outputs/flutter-apk/app-$BUILD_MODE.apk artifacts/mo-app-v$VERSION-$BUILD_MODE-$BRANCH_NAME-$TIMESTAMP.apk
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-apk-${{ github.event.inputs.build_mode }}-${{ github.ref_name }}
+          path: artifacts/*.apk
+          retention-days: 30
+
+      - name: Create release info
+        run: |
+          echo "# Build Information" > build-info.txt
+          echo "- **Branch:** ${{ github.ref_name }}" >> build-info.txt
+          echo "- **Build Mode:** ${{ github.event.inputs.build_mode }}" >> build-info.txt
+          echo "- **Commit:** ${{ github.sha }}" >> build-info.txt
+          echo "- **Build Time:** $(date -u)" >> build-info.txt
+          echo "- **Flutter Version:** $(flutter --version | head -1)" >> build-info.txt
+          
+      - name: Upload build info
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-info-${{ github.ref_name }}
+          path: build-info.txt
+          retention-days: 30 
