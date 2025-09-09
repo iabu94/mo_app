@@ -74,7 +74,7 @@ dependencies:
   freezed_annotation: ^3.1.0
   cloud_firestore: ^6.0.1
   flutter_contacts: ^1.1.9+2
-  geolocator: ^14.0.2
+  geolocator: ^13.0.2
   clipboard: ^2.0.2
   maps_launcher: ^3.0.0+1
   flutter_media_downloader: ^2.0.0
