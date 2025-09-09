@@ -36,7 +36,7 @@ dependencies:
   google_sign_in: ^6.2.2
   firebase_messaging: ^16.0.1
   location: ^7.0.1
-  sentry_flutter: ^9.6.0
+  sentry_flutter: ^8.14.2
   payhere_mobilesdk_flutter: ^3.0.4
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.9
