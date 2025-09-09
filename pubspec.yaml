@@ -34,9 +34,11 @@ dependencies:
   flutter_chat_bubble: ^2.0.2
   webview_flutter: ^4.13.0
   textfield_tags: ^3.0.1
-  # Third 2
+  # Third 4
   google_sign_in: ^7.1.1
   firebase_messaging: ^16.0.1
+  location: ^8.0.1
+  sentry_flutter: ^9.6.0
 
 dev_dependencies:
   flutter_test:
