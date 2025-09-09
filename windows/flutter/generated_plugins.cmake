@@ -3,8 +3,14 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  cloud_firestore
+  connectivity_plus
   file_selector_windows
   firebase_core
+  gal
+  geolocator_windows
+  maps_launcher
+  permission_handler_windows
   sentry_flutter
   share_plus
   url_launcher_windows
