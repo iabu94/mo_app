@@ -23,6 +23,17 @@ dependencies:
   carousel_slider: ^5.1.1
   flutter_rating_bar: ^4.0.1
   another_stepper: ^1.2.2
+  # Second 10
+  http: ^1.1.2
+  retry: ^3.1.2
+  shimmer: ^3.0.0
+  cached_network_image: ^3.3.1
+  badges: ^3.1.2
+  image_picker: ^1.0.7
+  google_maps_flutter: ^2.5.3
+  flutter_chat_bubble: ^2.0.2
+  webview_flutter: ^4.13.0
+  textfield_tags: ^3.0.1
 
 dev_dependencies:
   flutter_test:
